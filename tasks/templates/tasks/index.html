@@ -4,7 +4,7 @@
     <h1>Tasks</h1>
         <ul>
             {% for todo in todos %}
-                <li>{{ todo }}</li>
+                <li>{{ todo.0 }} with priority:{{ todo.1 }}</li>
             {% empty %}
                <li>No tasks</li>
             {% endfor %}

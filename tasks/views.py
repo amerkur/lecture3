@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.shortcuts import render
 
 class NewTaskForm(forms.Form):
-    form_func = forms.CharField(label="New Task")
+    form_task = forms.CharField(label="New Task")
+    form_num = forms.IntegerField(label="Priority", min_value=1, max_value=10)
 
 # Create your views here.
 
@@ -21,8 +22,9 @@ def add(request):
     if request.method == "POST":
         formed = NewTaskForm(request.POST)  #POSTed data + form stored in formed
         if formed.is_valid(): # if all 'formed' fields correct ie. text=text, etc
-            tasked = formed.cleaned_data["form_func"] # Calling NewTaskForm() stores function in 'form_func'
-            request.session["task_list"] += [tasked]
+            clean_form_task = formed.cleaned_data["form_task"] # Calling NewTaskForm() stores function in 'form_task'
+            clean_form_num = formed.cleaned_data["form_num"]
+            request.session["task_list"] += [clean_form_task, clean_form_num]
             return HttpResponseRedirect(reverse("tasks:index"))
         else:
             return render(request, "tasks/add.html", {
