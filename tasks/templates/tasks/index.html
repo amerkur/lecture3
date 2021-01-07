@@ -2,13 +2,25 @@
 
 {% block body %}
     <h1>Tasks</h1>
-        <ul>
-            {% for todo in todos %}
-                <li>{{ todo.0 }} with priority:{{ todo.1 }}</li>
-            {% empty %}
-               <li>No tasks</li>
-            {% endfor %}
-        </ul>
+    <table>
+        <thead>
+            <th>Task</th>
+            <th>Priority</th>
+        </thead>
+
+    {% for x in todos %}
+        <tr>
+            <td>
+            {{ x.task }}
+            </td>
+            <td>
+            {{ x.num }}
+            </td>
+        </tr>
+    {% endfor %}
+
+    </table>
+
         <br/>
         <a href="{% url 'tasks:add' %}">Add New Task</a>
 {% endblock %}

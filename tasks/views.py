@@ -24,7 +24,7 @@ def add(request):
         if formed.is_valid(): # if all 'formed' fields correct ie. text=text, etc
             clean_form_task = formed.cleaned_data["form_task"] # Calling NewTaskForm() stores function in 'form_task'
             clean_form_num = formed.cleaned_data["form_num"]
-            request.session["task_list"] += [clean_form_task, clean_form_num]
+            request.session["task_list"] += [{'task': clean_form_task, 'num': clean_form_num}]
             return HttpResponseRedirect(reverse("tasks:index"))
         else:
             return render(request, "tasks/add.html", {
